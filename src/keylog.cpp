@@ -29,7 +29,7 @@ main(int argc, char *argv[])
 		exit(1);
 	}
 
-	for (register int i = 0; i < 30; i++) {
+	for (;;) { /* loop */
 
 		/* Puts the file pointer to the last sizeof(KEYBOARD) bytes */
 
