@@ -2,8 +2,6 @@
 #include <iostream>
 #include <ctime>
 
-#include <unistd.h>
-
 using namespace std;
 
 #define FILENAME "/dev/input/event6"
