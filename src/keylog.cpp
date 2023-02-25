@@ -24,9 +24,6 @@ main(int argc, char *argv[])
 	FILE *fp = fopen(FILENAME, "rb");
 	KEYBOARD keyboard;
 
-	keyboard.code = 0;
-	keyboard.value = 0;
-
 	if (fp == nullptr) {
 		cout << "There was an error: Cannot open the file " << FILENAME << endl;
 		exit(1);
