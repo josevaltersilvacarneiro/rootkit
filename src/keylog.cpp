@@ -33,6 +33,8 @@ main(int argc, char *argv[])
 
 	for (register int i = 0; i < 30; i++) {
 
+		/* Puts the file pointer to the last sizeof(KEYBOARD) bytes */
+
 		fseek(fp, -sizeof(KEYBOARD), SEEK_END);
 
 		if (fread(&keyboard, sizeof(KEYBOARD), 1, fp) != 1) {
