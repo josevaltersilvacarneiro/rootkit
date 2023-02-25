@@ -2,6 +2,9 @@
 #include <iostream>
 #include <ctime>
 
+/* https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h */
+#include "input-event-codes.h" 
+
 using namespace std;
 
 #define FILENAME "/dev/input/event6"
@@ -40,7 +43,7 @@ main(int argc, char *argv[])
 				cout << "File read error" << endl;
 		}
 
-		if (keyboard.type == 1) {
+		if (keyboard.type == EV_KEY) {
 
 			if (keyboard.code > 1 && keyboard.code < 100)
 				cout << "Code: " << keyboard.code << endl;
