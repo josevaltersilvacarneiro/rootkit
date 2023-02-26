@@ -2,19 +2,23 @@
 #include <iostream>
 #include <ctime>
 
+/* See https://manpages.ubuntu.com/manpages/impish/man3/timeval.3bsd.html */
 /* https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h */
-#include "input-event-codes.h" 
+
+#include <linux/input.h>
 
 using namespace std;
 
 #define FILENAME "/dev/input/event6"
 
+/*
 struct input_event {
-	struct timeval time; /* See https://manpages.ubuntu.com/manpages/impish/man3/timeval.3bsd.html */
+	struct timeval time;
 	unsigned short type;
 	unsigned short code;
 	unsigned int value;
 };
+*/
 
 typedef struct input_event KEYBOARD;
 
