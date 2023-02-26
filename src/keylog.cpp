@@ -5,12 +5,6 @@
 /* See https://manpages.ubuntu.com/manpages/impish/man3/timeval.3bsd.html */
 /* https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h */
 
-#include <linux/input.h>
-
-using namespace std;
-
-#define FILENAME "/dev/input/event6"
-
 /*
 struct input_event {
 	struct timeval time;
@@ -20,13 +14,21 @@ struct input_event {
 };
 */
 
+#include <linux/input.h>
+
+using namespace std;
+
+#define FILENAME "/dev/input/event6"
+
 typedef struct input_event KEYBOARD;
 
 int
 main(int argc, char *argv[])
 {
-	FILE *fp = fopen(FILENAME, "rb");
+	FILE    *fp;
 	KEYBOARD keyboard;
+
+	fp = fopen(FILENAME, "rb");
 
 	if (fp == nullptr) {
 		cout << "There was an error: Cannot open the file " << FILENAME << endl;
@@ -44,10 +46,16 @@ main(int argc, char *argv[])
 				cout << "File read error" << endl;
 		}
 
-		if (keyboard.type == EV_KEY) {
+		if (keyboard.type == EV_KEY && keyboard.value == EV_KEY) {
 
-			if (keyboard.code > 1 && keyboard.code < 100)
-				cout << "Code: " << keyboard.code << endl;
+			switch (keyboard.code) {
+				case KEY_A:
+					cout << "a" << endl;
+					break;
+				case KEY_B:
+					cout << "b" << endl;
+					break;
+			}
 		}
 		/*
 		cout << "Time: "   << keyboard.time.tv_sec << endl;
