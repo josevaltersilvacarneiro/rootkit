@@ -154,8 +154,10 @@ main(int argc, char *argv[])
 					break;
 				case EV_KEY:
 					ch = get_typed_letter(event.code);
-					if (ch != '\0')
-						cout << ch << endl;
+					if (ch != '\0') {
+						cout << ch;
+						cout.flush();
+					}
 					break;
 				case EV_REL:
 					delete_syn(event.code);
