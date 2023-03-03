@@ -18,15 +18,6 @@
  * https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
  */
 
-/*
-struct input_event {
-	struct timeval time;
-	unsigned short type;
-	unsigned short code;
-	unsigned int value;
-};
-*/
-
 #include <linux/input.h>
 
 using namespace std;
