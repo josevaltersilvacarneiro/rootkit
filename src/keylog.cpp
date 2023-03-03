@@ -27,7 +27,9 @@ using namespace std;
 
 #define MAXIMUM_LINE_LENGTH	80
 
-vector<unsigned short> syns;		/* It stores signals */
+static vector<unsigned short> syns;		/* It stores signals */
+
+extern char get_typed_letter(unsigned short code, vector<unsigned short>& syns);
 
 bool
 is_in_syns(unsigned short code)
@@ -56,57 +58,6 @@ push_syn(unsigned short code)
 
 	if (!is_in_syns(code))
 		syns.push_back(code);
-}
-
-char
-get_typed_letter(unsigned short code)
-{
-	char ch = '\0';
-
-	switch (code) {
-		case KEY_1:
-		case KEY_KP1:
-			ch = '1';
-			break;
-		case KEY_2:
-		case KEY_KP2:
-			ch = '2';
-			break;
-		case KEY_3:
-		case KEY_KP3:
-			ch = '3';
-			break;
-		case KEY_4:
-		case KEY_KP4:
-			ch = '4';
-			break;
-		case KEY_5:
-		case KEY_KP5:
-			ch = '5';
-			break;
-		case KEY_6:
-		case KEY_KP6:
-			ch = '6';
-			break;
-		case KEY_7:
-		case KEY_KP7:
-			ch = '7';
-			break;
-		case KEY_8:
-		case KEY_KP8:
-			ch = '8';
-			break;
-		case KEY_9:
-		case KEY_KP9:
-			ch = '9';
-			break;
-		case KEY_0:
-		case KEY_KP0:
-			ch = '0';
-			break;
-	}
-
-	return ch;
 }
 
 void
@@ -174,7 +125,7 @@ main(int argc, char *argv[])
 					push_syn(event.code);
 					break;
 				case EV_KEY:
-					ch = get_typed_letter(event.code);
+					ch = get_typed_letter(event.code, syns);
 					if (ch != '\0')
 						if (!store_in_file(fp_where_to_store, ch))
 							cout << "There was an error" << endl;
