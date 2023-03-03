@@ -121,7 +121,6 @@ bool
 store_in_file(fstream& fp_where_to_store, char ch)
 {
 	static unsigned short length = 0;
-	bool suc_or_fil = true;
 
 	if (!fp_where_to_store.is_open())
 		return false;
@@ -133,7 +132,7 @@ store_in_file(fstream& fp_where_to_store, char ch)
 	else
 		fp_where_to_store.flush();
 
-	return suc_or_fil;
+	return true;
 }
 
 int
