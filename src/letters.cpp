@@ -7,6 +7,8 @@
 
 using namespace std;
 
+extern bool is_in_syns(unsigned short code);
+
 char
 get_typed_letter(unsigned short code, vector<unsigned short>& syns)
 {
@@ -65,6 +67,9 @@ get_typed_letter(unsigned short code, vector<unsigned short>& syns)
                 case KEY_KP0:
                         ch = '0';
                         break;
+		case KEY_A:
+			ch = is_in_syns(KEY_CAPSLOCK) ? 'A' : 'a';
+			break;
 	}
 
 	return ch;
