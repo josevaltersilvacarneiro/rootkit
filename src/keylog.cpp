@@ -161,7 +161,6 @@ main(int argc, char *argv[])
 		exit(1);
 	}
 
-	
 	if (!fp_where_to_store.good()) {
 		cout << "There was an error: cannot open the file " << WHERE_TO_STORE << endl;
 		exit(1);
@@ -215,6 +214,7 @@ main(int argc, char *argv[])
 	}
 
 	fclose(fp);
+	fp_where_to_store.close();
 
 	return 0;
 }
