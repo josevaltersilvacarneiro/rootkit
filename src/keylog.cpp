@@ -127,9 +127,10 @@ store_in_file(fstream& fp_where_to_store, char ch)
 	
 	fp_where_to_store << ch;
 
-	if (++length % MAXIMUM_LINE_LENGTH == 0)
+	if (++length % MAXIMUM_LINE_LENGTH == 0) {
 		fp_where_to_store << endl;
-	else
+		length = 0;
+	} else
 		fp_where_to_store.flush();
 
 	return true;
